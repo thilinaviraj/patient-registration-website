@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>  
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>  
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css"/>
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"> </script>
+        <style>
+            body{
+                background:#ffe6e6;
+            }
+            .navbar, .dropdown-menu{
+            background:rgba(255, 128, 128,0.25);
+            border: none;
+
+            }
+
+            .nav>li>a, .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover, .dropdown-menu>li>a, .dropdown-menu>li{
+              border-bottom: 3px solid transparent;
+            }
+            .nav>li>a:focus, .nav>li>a:hover,.nav .open>a, .nav .open>a:focus, .nav .open>a:hover, .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{
+              border-bottom: 3px solid transparent;
+              background: none;
+            }
+            .navbar a, .dropdown-menu>li>a, .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover, .navbar-toggle{
+             color: #000066;
+            }
+            .dropdown-menu{
+                  -webkit-box-shadow: none;
+                box-shadow:none;
+            }
+
+            .nav li:hover:nth-child(8n+1), .nav li.active:nth-child(8n+1){
+              border-bottom: #C4E17F 3px solid;
+            }
+            .nav li:hover:nth-child(8n+2), .nav li.active:nth-child(8n+2){
+              border-bottom: #F7FDCA 3px solid;
+            }
+            .nav li:hover:nth-child(8n+3), .nav li.active:nth-child(8n+3){
+              border-bottom: #FECF71 3px solid;
+            }
+            .nav li:hover:nth-child(8n+4), .nav li.active:nth-child(8n+4){
+              border-bottom: #F0776C 3px solid;
+            }
+            .nav li:hover:nth-child(8n+5), .nav li.active:nth-child(8n+5){
+              border-bottom: #DB9DBE 3px solid;
+            }
+            .nav li:hover:nth-child(8n+6), .nav li.active:nth-child(8n+6){
+              border-bottom: #C49CDE 3px solid;
+            }
+            .nav li:hover:nth-child(8n+7), .nav li.active:nth-child(8n+7){
+              border-bottom: #669AE1 3px solid;
+            }
+            .nav li:hover:nth-child(8n+8), .nav li.active:nth-child(8n+8){
+              border-bottom: #62C2E4 3px solid;
+            }
+
+            .navbar-toggle .icon-bar{
+                color: #fff;
+                background: #fff;
+            }
+        </style>
+    </head>
+    
+    <body>
+            <div class="container-fluid">
+                <nav class="navbar navbar-fixed">
+                    <div class="navbar-header">
+      			<ul class="nav navbar-nav navbar-left"><li><img src="image/logo.jpg" height=50 width=250 align="left"></li></ul>
+                    </div>
+                        <div class="container">
+                            <div id="navbar" class="navbar-collapse collapse">
+                                <ul class="nav navbar-nav">
+                                    <li class=""><a href="#" class=""><span class="glyphicon glyphicon-saved"></span> Add details</a></li>
+                                    <li class=""><a href="#" class=""><span class="glyphicon glyphicon-search"></span> Search details</a></li>
+                                    <li><a href="#"><span class="glyphicon glyphicon-import"></span> Update details</a></li>
+                                    <li class=""><a href="#"><span class="glyphicon glyphicon-remove"></span> Delete details</a></li>
+                                </ul>
+                                <ul class="nav navbar-nav pull-right">
+                                    <li class=""><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                </nav>
+            </div>
+            
+            <div class="container">
+        <div class="row">
+            <div class="box clearfix">
+            <table class="table" id="bootstrap-table">
+                <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>NIC</th>
+                    <th>Address</th>
+                    <th>Telephone/Mobile</th>
+                    <th>Disability</th>
+                    <th>Reason</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>200</td>
+                    <td>janedoe</td>
+                    <td>Yane</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>100</td>
+                    <td>zanedoe</td>
+                    <td>Jane</td>
+                    <td>Moe</td>
+                </tr>
+                <tr>
+                    <td>300</td>
+                    <td>aanedoe</td>
+                    <td>Lane</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>100</td>
+                    <td>canedoe</td>
+                    <td>Jane</td>
+                    <td>Boe</td>
+                </tr>
+                <tr>
+                    <td>100</td>
+                    <td>janedoe</td>
+                    <td>Jane</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>100</td>
+                    <td>janedoe</td>
+                    <td>Jane</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>100</td>
+                    <td>janedoe</td>
+                    <td>Jane</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>100</td>
+                    <td>janedoe</td>
+                    <td>Jane</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>100</td>
+                    <td>janedoe</td>
+                    <td>Jane</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>100</td>
+                    <td>janedoe</td>
+                    <td>Jane</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>100</td>
+                    <td>janedoe</td>
+                    <td>Jane</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>100</td>
+                    <td>janedoe</td>
+                    <td>Jane</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>100</td>
+                    <td>janedoe</td>
+                    <td>Jane</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>100</td>
+                    <td>janedoe</td>
+                    <td>Jane</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>100</td>
+                    <td>janedoe</td>
+                    <td>Jane</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>100</td>
+                    <td>janedoe</td>
+                    <td>Jane</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>100</td>
+                    <td>janedoe</td>
+                    <td>Jane</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>100</td>
+                    <td>janedoe</td>
+                    <td>Jane</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>210</td>
+                    <td>johndoe</td>
+                    <td>John</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>310</td>
+                    <td>johndoe</td>
+                    <td>John</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>410</td>
+                    <td>johndoe</td>
+                    <td>John</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>510</td>
+                    <td>johndoe</td>
+                    <td>John</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>610</td>
+                    <td>johndoe</td>
+                    <td>John</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>710</td>
+                    <td>johndoe</td>
+                    <td>John</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>810</td>
+                    <td>johndoe</td>
+                    <td>John</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>910</td>
+                    <td>johndoe</td>
+                    <td>John</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>100</td>
+                    <td>johndoe</td>
+                    <td>John</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>110</td>
+                    <td>johndoe</td>
+                    <td>John</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>120</td>
+                    <td>johndoe</td>
+                    <td>John</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>130</td>
+                    <td>johndoe</td>
+                    <td>John</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>140</td>
+                    <td>johndoe</td>
+                    <td>John</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>150</td>
+                    <td>johndoe</td>
+                    <td>John</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>160</td>
+                    <td>johndoe</td>
+                    <td>John</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>170</td>
+                    <td>johndoe</td>
+                    <td>John</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>180</td>
+                    <td>johndoe</td>
+                    <td>John</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>190</td>
+                    <td>johndoe</td>
+                    <td>John</td>
+                    <td>Doe</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+<script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+<script src="js/vendor/bootstrap.min.js" type="text/javascript"></script>
+<script src="js/vendor/jquery.sortelements.js" type="text/javascript"></script>
+<script src="js/jquery.bdt.js" type="text/javascript"></script>
+<script>
+    $(document).ready( function () {
+        $('#bootstrap-table').bdt();
+    });
+</script>
+    </body>
+</html>
