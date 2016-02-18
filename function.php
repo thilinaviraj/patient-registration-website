@@ -116,6 +116,7 @@ class Admin{
     
     function patient_delete($PatientID){
         $QUE = "DELETE FROM patient WHERE PatientID = $PatientID" ;
+        
         $this->Conn->query($QUE);
         
         
