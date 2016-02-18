@@ -246,10 +246,16 @@ function load() {
                 </tr>
                 </thead>
                 <tbody>
-                <?php 
-                    while ($data = $res->fetch_assoc()){
-                        echo "<tr><td><input type='checkbox' name='patients[]' id='patients[]' value='".$data['PatientID']."'></td><td>".$data['First_Name']."</td><td>".$data['Last_Name']."</td><td>".$data['NIC_No']."</td><td>".$data['Address']."</td><td>".$data['Telephone']."</td><td>".$data['Disability']."</td><td>".html_entity_decode($data['Reason'])."</td><td>".html_entity_decode($data['Description'])."</td>";
+                <?php
+                    if ($res) {
+                        while ($data = $res->fetch_assoc()) {
+                            echo "<tr><td><input type='checkbox' name='patients[]' id='patients[]' value='" . $data['PatientID'] . "'></td><td>" . $data['First_Name'] . "</td><td>" . $data['Last_Name'] . "</td><td>" . $data['NIC_No'] . "</td><td>" . $data['Address'] . "</td><td>" . $data['Telephone'] . "</td><td>" . $data['Disability'] . "</td><td>" . html_entity_decode($data['Reason']) . "</td><td>" . html_entity_decode($data['Description']) . "</td>";
+                        }
                     }
+                    else{
+                        throw new Exception("Database Error [{$log->Conn->errno}] {$log->Conn->error}");
+                    }
+
                 ?>
                 </tbody>
             </table>
