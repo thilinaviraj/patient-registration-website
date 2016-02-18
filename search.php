@@ -4,10 +4,11 @@
     $Name = $City = $Disability = "";
     $log = new Admin;
     if (isset($_POST['print']) and isset($_POST['patients'])){
-        
+        echo $_POST['patients'][0];
     }
-    elseif(isset($_POST['delete']) and isset($_POST['patients'])){
+    elseif(isset($_POST['del']) and isset($_POST['patients'])){
         foreach ($_POST['patients'] as $pid){
+            echo $pid;
             $log->patient_delete($pid);
         }
         
@@ -221,13 +222,15 @@ function load() {
                         <input type="text" name="disability" placeholder="Disability">
                         <input type="submit" >
                     </form>
+                    <br>
+                    <br>
                 </div>
                 <div class="row"><form name="selectform" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post">
             <div class="box clearfix">
-            <table class="table" >
+            <table class="table" id="bootstrap-table">
                 <thead>
                 <tr>
-                    <th><input type="checkbox" id='selectall'  ></th>
+                    <th><input type="checkbox"  ></th>
                     
                     <th>First Name</th>
                     <th>Last Name</th>
