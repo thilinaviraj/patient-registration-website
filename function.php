@@ -94,8 +94,8 @@ class Admin{
     
     function patient_edit($PatientID, $FirstName="" , $LastName="", $Address="", $City="", $Telephone="", $NIC="", $Disability="", $Reason="", $Description="", $Latitude="", $Longitude=""){
         $CondArray = array();
-        if ($FirstName != ""){array_push($CondArray, " FirstName = '$FirstName'");}
-        if ($LastName != ""){array_push($CondArray, "LastName =  '$LastName'");}
+        if ($FirstName != ""){array_push($CondArray, " First_Name = '$FirstName'");}
+        if ($LastName != ""){array_push($CondArray, "Last_Name =  '$LastName'");}
         if ($Address != ""){array_push($CondArray, "Address = '$Address'");}
         if ($City != ""){array_push($CondArray, "City = '$City'");}
         if ($Telephone != ""){array_push($CondArray, "Telephone = $Telephone");}
@@ -108,6 +108,7 @@ class Admin{
         
         if (count($CondArray) != 0 ){
             $QUE = "UPDATE Patient set ". implode(" , ", $CondArray) . " WHERE PatientID = $PatientID"; 
+            echo $QUE;
             $this->Conn->query($QUE);
         }
         
