@@ -4,11 +4,11 @@
     $Name = $City = $Disability = "";
     $log = new Admin;
     if (isset($_POST['print']) and isset($_POST['patients'])){
-        echo $_POST['patients'][0];
+        
     }
     elseif(isset($_POST['del']) and isset($_POST['patients'])){
         foreach ($_POST['patients'] as $pid){
-            echo $pid;
+            
             $log->patient_delete($pid);
         }
         
@@ -99,7 +99,7 @@
         </style>
         <style>
       #map {
-        width: 500px;
+        width: 40%;
         height: 300px;
       }
     </style>
@@ -217,7 +217,7 @@ function load() {
             <div class="container">
                 <div class="row">
                     <form name="search" action="" method="post">
-                        <input type="text" name="city" placeholder="City">
+                        <input type="text" name="city" placeholder="City" >
                         <input type="text" name="name" placeholder="Name">
                         <input type="text" name="disability" placeholder="Disability">
                         <input type="submit" >
@@ -226,8 +226,9 @@ function load() {
                     <br>
                 </div>
                 <div class="row"><form name="selectform" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post">
-            <div class="box clearfix">
-            <table class="table" id="bootstrap-table">
+            <div class="box clearfix col-lg-7"><button class="btn btn-primary" type="submit" name="del" value="Delete">Delete</button>
+                        <button class="btn btn-primary" type="submit" name="print" value="Print">Print</button>
+            <table class="table" >
                 <thead>
                 <tr>
                     <th><input type="checkbox"  ></th>
@@ -253,13 +254,12 @@ function load() {
                 </tbody>
             </table>
         </div>
-                        <button class="btn btn-primary" type="submit" name="del" value="Delete">Delete</button>
-                        <button class="btn btn-primary" type="submit" name="print" value="Print">Print</button>
+                        
                     </form>
                     
-                   
+                   <div id="map" class="col-lg-4"></div>
         </div>
-                <div id="map"></div>
+                
     </div>
 
 <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
