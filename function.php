@@ -1,9 +1,7 @@
 <?php
 
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+The Functions Used in the 
  */
 include "config.php";
 session_start();
@@ -18,7 +16,7 @@ class Admin{
             die("Connection failed: " . mysqli_connect_error());
         }
         
-        echo "Connected successfully";
+        //echo "Connected successfully";
         
     }
     
@@ -32,7 +30,8 @@ class Admin{
         $result = $this->Conn->query($QUE);
         $bool = FALSE;
         if ($result->num_rows == 1){
-            $bool = TRUE;
+            $data = $result->fetch_assoc();
+            $bool = password_verify($password, $data['password']);
         }
         return $bool;
     }
@@ -66,13 +65,13 @@ class Admin{
     function patient_search($Name="", $City="", $Disability=""){
         $CondArray = array();
         if ($Name != ""){
-            array_push($CondArray, "FirstName='$Name' OR LastName='$Name'");
+            array_push($CondArray, "First_Name LIKE '%$Name%' OR Last_Name LIKE '%$Name%' OR CONCAT(First_Name, ' ', Last_Name) LIKE '%$Name%'");
         }
         if ($City != ""){
-            array_push($CondArray, "City='$City'");
+            array_push($CondArray, "City LIKE '%$City%'");
         }
         if ($Disability != ""){
-            array_push($CondArray, "Disability='$Disability'");
+            array_push($CondArray, "Disability LIKE '%$Disability%'");
         }
         $String = "SELECT * FROM patient";
         $QUE= "";
@@ -82,7 +81,8 @@ class Admin{
         else{
             $QUE = $String . " WHERE " . implode(" AND ", $CondArray);
         }
-        $this->Conn->query();
+        $res = $this->Conn->query($QUE);
+        return $res;
     }
     
     function patient_read($PatientID){
@@ -92,10 +92,10 @@ class Admin{
         
     }
     
-    function patient_edit($PatientID, $FirstName="" , $LastName, $Address, $City, $Telephone, $NIC, $Disability, $Reason, $Description, $Latitude, $Longitude){
+    function patient_edit($PatientID, $FirstName="" , $LastName="", $Address="", $City="", $Telephone="", $NIC="", $Disability="", $Reason="", $Description="", $Latitude="", $Longitude=""){
         $CondArray = array();
-        if ($FirstName != ""){array_push($CondArray, " FirstName = '$FirstName'");}
-        if ($LastName != ""){array_push($CondArray, "LastName =  '$LastName'");}
+        if ($FirstName != ""){array_push($CondArray, " First_Name = '$FirstName'");}
+        if ($LastName != ""){array_push($CondArray, "Last_Name =  '$LastName'");}
         if ($Address != ""){array_push($CondArray, "Address = '$Address'");}
         if ($City != ""){array_push($CondArray, "City = '$City'");}
         if ($Telephone != ""){array_push($CondArray, "Telephone = $Telephone");}
@@ -108,6 +108,7 @@ class Admin{
         
         if (count($CondArray) != 0 ){
             $QUE = "UPDATE Patient set ". implode(" , ", $CondArray) . " WHERE PatientID = $PatientID"; 
+            echo $QUE;
             $this->Conn->query($QUE);
         }
         
@@ -116,6 +117,7 @@ class Admin{
     function patient_delete($PatientID){
         $QUE = "DELETE FROM patient WHERE PatientID = $PatientID" ;
         $this->Conn->query($QUE);
+        
         
         
     }
