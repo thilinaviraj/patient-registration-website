@@ -98,11 +98,11 @@
             }
         </style>
         <style>
-      #map {
-        width: 40%;
-        height: 300px;
-      }
-    </style>
+            #map {
+              width: 40%;
+              height: 300px;
+            }
+        </style>
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     <script>
     
@@ -188,8 +188,9 @@ function load() {
 
                 return createElement('div', null);
               }
-    //]]>
 </script>
+
+
     </head>
     
     <body>
@@ -231,7 +232,12 @@ function load() {
             <table class="table" >
                 <thead>
                 <tr>
-                    <th><input type="checkbox"  ></th>
+                    <th>    <div class="checkbox">
+    <label>
+      <input type="checkbox" class="check" id="checkAll"> Check All
+    </label>
+  </div></button>
+</th>
                     
                     <th>First Name</th>
                     <th>Last Name</th>
@@ -246,16 +252,11 @@ function load() {
                 </tr>
                 </thead>
                 <tbody>
-                <?php
-                    if ($res) {
-                        while ($data = $res->fetch_assoc()) {
-                            echo "<tr><td><input type='checkbox' name='patients[]' id='patients[]' value='" . $data['PatientID'] . "'></td><td>" . $data['First_Name'] . "</td><td>" . $data['Last_Name'] . "</td><td>" . $data['NIC_No'] . "</td><td>" . $data['Address'] . "</td><td>" . $data['Telephone'] . "</td><td>" . $data['Disability'] . "</td><td>" . html_entity_decode($data['Reason']) . "</td><td>" . html_entity_decode($data['Description']) . "</td>";
-                        }
+                <?php 
+                    while ($data = $res->fetch_assoc()){
+                        
+                        echo "<tr><td><input type='checkbox' name='patients[]' class='check' id='patients[]' value='".$data['PatientID']."'></td><td>".$data['First_Name']."</td><td>".$data['Last_Name']."</td><td>".$data['NIC_No']."</td><td>".$data['Address']."</td><td>".$data['Telephone']."</td><td>".$data['Disability']."</td><td>".html_entity_decode($data['Reason'])."</td><td>".html_entity_decode($data['Description'])."</td>";
                     }
-                    else{
-                        throw new Exception("Database Error [{$log->Conn->errno}] {$log->Conn->error}");
-                    }
-
                 ?>
                 </tbody>
             </table>
@@ -267,15 +268,21 @@ function load() {
         </div>
                 
     </div>
-
+<script>
+            $("#checkAll").click(function () {
+    $(".check").prop('checked', $(this).prop('checked'));
+});
+        </script>
 <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script src="js/vendor/bootstrap.min.js" type="text/javascript"></script>
 <script src="js/vendor/jquery.sortelements.js" type="text/javascript"></script>
 <script src="js/jquery.bdt.js" type="text/javascript"></script>
+
 <script>
     $(document).ready( function () {
         $('#bootstrap-table').bdt();
     });
 </script>
+
     </body>
 </html>
