@@ -42,7 +42,25 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>  
         <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css"/>
         <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"> </script>
-        <style>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+    <script src="js/vendor/bootstrap.min.js" type="text/javascript"></script>
+    <script src="js/vendor/jquery.sortelements.js" type="text/javascript"></script>
+    <script src="js/jquery.bdt.js" type="text/javascript"></script>
+    <script>
+        $(document).ready( function () {
+            $('#bootstrap-table').bdt();
+        });
+    </script>
+      <style type="text/css">
+    .bs-example{
+    	margin: 20px;
+    }
+</style>  
+<style>
             body{
                 background:#ffe6e6;
             }
@@ -97,18 +115,120 @@
                 background: #fff;
             }
         </style>
-        <style>
-            #map {
-              width: 40%;
-              height: 300px;
-            }
-        </style>
-    <script src="https://maps.googleapis.com/maps/api/js"></script>
-    <script>
+        <script>
+$.fn.pageMe = function(opts){
+    var $this = this,
+        defaults = {
+            perPage: 1,
+            showPrevNext: false,
+            hidePageNumbers: false
+        },
+        settings = $.extend(defaults, opts);
     
-function load() {
+    var listElement = $this;
+    var perPage = settings.perPage; 
+    var children = listElement.children();
+    var pager = $('.pager');
+    
+    if (typeof settings.childSelector!="undefined") {
+        children = listElement.find(settings.childSelector);
+    }
+    
+    if (typeof settings.pagerSelector!="undefined") {
+        pager = $(settings.pagerSelector);
+    }
+    
+    var numItems = children.size();
+    var numPages = Math.ceil(numItems/perPage);
+
+    pager.data("curr",0);
+    
+    if (settings.showPrevNext){
+        $('<li><a href="#" class="prev_link">«</a></li>').appendTo(pager);
+    }
+    
+    var curr = 0;
+    while(numPages > curr && (settings.hidePageNumbers==false)){
+        $('<li><a href="#" class="page_link">'+(curr+1)+'</a></li>').appendTo(pager);
+        curr++;
+    }
+    
+    if (settings.showPrevNext){
+        $('<li><a href="#" class="next_link">»</a></li>').appendTo(pager);
+    }
+    
+    pager.find('.page_link:first').addClass('active');
+    pager.find('.prev_link').hide();
+    if (numPages<=1) {
+        pager.find('.next_link').hide();
+    }
+  	pager.children().eq(1).addClass("active");
+    
+    children.hide();
+    children.slice(0, perPage).show();
+    
+    pager.find('li .page_link').click(function(){
+        var clickedPage = $(this).html().valueOf()-1;
+        goTo(clickedPage,perPage);
+        return false;
+    });
+    pager.find('li .prev_link').click(function(){
+        previous();
+        return false;
+    });
+    pager.find('li .next_link').click(function(){
+        next();
+        return false;
+    });
+    
+    function previous(){
+        var goToPage = parseInt(pager.data("curr")) - 1;
+        goTo(goToPage);
+    }
+     
+    function next(){
+        goToPage = parseInt(pager.data("curr")) + 1;
+        goTo(goToPage);
+    }
+    
+    function goTo(page){
+        var startAt = page * perPage,
+            endOn = startAt + perPage;
+        
+        children.css('display','none').slice(startAt, endOn).show();
+        
+        if (page>=1) {
+            pager.find('.prev_link').show();
+        }
+        else {
+            pager.find('.prev_link').hide();
+        }
+        
+        if (page<(numPages-1)) {
+            pager.find('.next_link').show();
+        }
+        else {
+            pager.find('.next_link').hide();
+        }
+        
+        pager.data("curr",page);
+      	pager.children().removeClass("active");
+        pager.children().eq(page+1).addClass("active");
+    
+    }
+};
+
+$(document).ready(function(){
+    
+  $('#myTable').pageMe({pagerSelector:'#myPager',showPrevNext:true,hidePageNumbers:false,perPage:4});
+    
+});
+</script>
+        <script src="https://maps.googleapis.com/maps/api/js"></script>
+        <script>
+            function load() {
                 var map = new google.maps.Map(document.getElementById("map"), {
-                  center: new google.maps.LatLng(6.9218386, 79.8562055),
+                  center: new google.maps.LatLng(7.873054, 79.8562055),
                   zoom: 5,
                   mapTypeId: 'roadmap'
                 });
@@ -138,16 +258,13 @@ function load() {
                     bounds.extend(point);
                     var html = "<b>" + name + "</b> <br/>" + address +"</b> <br/>" +  disable ;
                     bindInfoWindow(marker, map, infoWindow, html);
-                    
-
                   }
-                  
                 }
-                
-               
+
                 map.fitBounds(bounds);
                 });
               }
+              
 
               function bindInfoWindow(marker, map, infoWindow, html) {
                 google.maps.event.addListener(marker, 'click', function() {
@@ -188,9 +305,9 @@ function load() {
 
                 return createElement('div', null);
               }
-</script>
-
-
+        </script>
+        
+        
     </head>
     
     <body>
@@ -217,72 +334,70 @@ function load() {
          
             <div class="container">
                 <div class="row">
-                    <form name="search" action="" method="post">
-                        <input type="text" name="city" placeholder="City" >
-                        <input type="text" name="name" placeholder="Name">
-                        <input type="text" name="disability" placeholder="Disability">
-                        <input type="submit" >
+                    <form class="navbar-form" role="search"align = "center"  method="post">
+                        <div class="form-group">
+                            <input type="text" name="city" class="form-control" placeholder="City"/>
+                            <input type="text" align = "right" class="form-control" name = "name" placeholder=" Name"/>
+                            <input type="text" name="disablitiy" class="form-control" placeholder="Disability"/>
+                        </div> 
+                        <button type="submit" class="btn btn-default">Search</button>					
                     </form>
                     <br>
                     <br>
                 </div>
-                <div class="row"><form name="selectform" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post">
-            <div class="box clearfix col-lg-7"><button class="btn btn-primary" type="submit" name="del" value="Delete">Delete</button>
-                        <button class="btn btn-primary" type="submit" name="print" value="Print">Print</button>
-            <table class="table" >
-                <thead>
-                <tr>
-                    <th>    <div class="checkbox">
-    <label>
-      <input type="checkbox" class="check" id="checkAll"> Check All
-    </label>
-  </div></button>
-</th>
-                    
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>NIC</th>
-                    <th>Address</th>
-                    
-                    <th>Telephone/Mobile</th>
-                    <th>Disability</th>
-                    <th>Reason</th>
-                    <th>Description</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php 
-                    while ($data = $res->fetch_assoc()){
-                        
-                        echo "<tr><td><input type='checkbox' name='patients[]' class='check' id='patients[]' value='".$data['PatientID']."'></td><td>".$data['First_Name']."</td><td>".$data['Last_Name']."</td><td>".$data['NIC_No']."</td><td>".$data['Address']."</td><td>".$data['Telephone']."</td><td>".$data['Disability']."</td><td>".html_entity_decode($data['Reason'])."</td><td>".html_entity_decode($data['Description'])."</td>";
-                    }
-                ?>
-                </tbody>
-            </table>
-        </div>
-                        
+            </div>
+                <div class="container">
+                    <form name="selectform" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post">
+                        <div class ="container">
+                        <button class="btn btn-default" type="submit" name="del" value="Delete">Delete</button>
+                        <button class="btn btn-default" type="submit" name="print" value="Print">Print</button>
+                        </div>
                     </form>
+                        <div class="container">
+                            <div class="table-responsive" align="center">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th><input type="checkbox" class="check" id="checkAll"></th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>NIC</th>
+                                            <th>Address</th>
+                                            <th>Telephone/Mobile</th>
+                                            <th>Disability</th>
+                                            <th>Reason</th>
+                                            <th>Description</th>
+                                            <th>Edit</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody id="myTable">
+                                        <?php 
+                                            while ($data = $res->fetch_assoc()){
+                                                echo "<tr><td><input type='checkbox' name='patients[]' class='check' id='patients[]' value='".$data['PatientID']."'></td><td>".$data['First_Name']."</td><td>".$data['Last_Name']."</td><td>".$data['NIC_No']."</td><td>".$data['Address']."</td><td>".$data['Telephone']."</td><td>".$data['Disability']."</td><td>".html_entity_decode($data['Reason'])."</td><td>".html_entity_decode($data['Description'])."</td>";
+                                            }
+                                        ?>
+                                    </tbody>
+                                </table>
+                                <div class="col-md-12 text-center">
+      <ul class="pagination pagination-lg pager" id="myPager"></ul>
+      </div>
+                            </div>
+                        </div>
+
+                        
+                   <br>
                     
-                   <div id="map" class="col-lg-4"></div>
-        </div>
+                    <div class="container"><div id="map" style="width: 1150px; height: 400px"></div></div>
                 
-    </div>
-<script>
-            $("#checkAll").click(function () {
-    $(".check").prop('checked', $(this).prop('checked'));
-});
-        </script>
-<script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
-<script src="js/vendor/bootstrap.min.js" type="text/javascript"></script>
-<script src="js/vendor/jquery.sortelements.js" type="text/javascript"></script>
-<script src="js/jquery.bdt.js" type="text/javascript"></script>
-
-<script>
-    $(document).ready( function () {
-        $('#bootstrap-table').bdt();
-    });
-</script>
-
+                </div>
+            
+            
+    <script>
+        $("#checkAll").click(function () {
+        $(".check").prop('checked', $(this).prop('checked'));
+        });
+    </script>
+    
     </body>
 </html>
