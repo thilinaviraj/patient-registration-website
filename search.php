@@ -4,14 +4,21 @@
     $Name = $City = $Disability = "";
     $log = new Admin;
     if (isset($_POST['print']) and isset($_POST['patients'])){
-        
+        $array = array();
+        foreach ($_POST['patients'] as $pid){
+            $array[] = $pid;
+            
+        }
+        $_SESSION['print_index'] = $array;
+        header("location:printprocess.php");
+        exit();
     }
     elseif(isset($_POST['del']) and isset($_POST['patients'])){
         foreach ($_POST['patients'] as $pid){
             
             $log->patient_delete($pid);
         }
-        
+        $query = "searchxml.php";
     }
     elseif ($_SERVER['REQUEST_METHOD'] == "POST"){
         $query_array = array();
@@ -334,7 +341,7 @@ $(document).ready(function(){
          
             <div class="container">
                 <div class="row">
-                    <form class="navbar-form" role="search"align = "center"  method="post">
+                    <form class="navbar-form" role="search" align="center"  method="post">
                         <div class="form-group">
                             <input type="text" name="city" class="form-control" placeholder="City"/>
                             <input type="text" align = "right" class="form-control" name = "name" placeholder=" Name"/>
@@ -352,7 +359,7 @@ $(document).ready(function(){
                         <button class="btn btn-default" type="submit" name="del" value="Delete">Delete</button>
                         <button class="btn btn-default" type="submit" name="print" value="Print">Print</button>
                         </div>
-                    </form>
+                    
                         <div class="container">
                             <div class="table-responsive" align="center">
                                 <table class="table table-hover">
@@ -389,7 +396,7 @@ $(document).ready(function(){
                    <br>
                     
                     <div class="container"><div id="map" style="width: 1150px; height: 400px"></div></div>
-                
+                </form>
                 </div>
             
             
