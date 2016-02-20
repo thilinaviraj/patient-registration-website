@@ -251,7 +251,7 @@ Not advised to edit stuff below this line
   vertical-align: middle;
   text-align: right;
   border-top: 2px solid #d6dbdf;
-  background-color: #F3F5FA;
+  background-color:#c0c0c0;
 }
 .formoid-solid-blue div.title {
   border-radius: 5px 5px 0 0;
@@ -822,9 +822,9 @@ Not advised to edit stuff below this line
   border-color: #3498DB;
 }
 .formoid-solid-blue div.title{
-  background-color: #3498DB;
-  border-top: 1px solid #70B6E5;
-  border-bottom: 5px solid #2372A7;
+  background-color: #c0c0c0;
+  border-top: 1px solid #c0c0c0;
+  border-bottom: 5px solid #c0c0c0;
 }
 
 .formoid-solid-blue input[type=submit]{
