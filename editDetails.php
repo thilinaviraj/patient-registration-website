@@ -25,25 +25,7 @@
         
         $log = new Admin();
         $res = $log->patient_edit($id, $FirstName, $LastName, $Address, $City, $Telephone, $NIC, $Disability, $Reason, $Description, $latitude, $longitude);
-        if (!$res){
-            //Show error modal
-            $errorModal =  ' <div id="myModal" class="modal fade" >
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" style="background-color:#FFFFFF;font-size:25px;font-family:"Roboto",Arial,Helvetica,sans-serif;color:#34495E;max-width:600px;min-width:150px">Confirmation</h4>
-                    </div>
-                    <div class="modal-body">
-                        There was an error in the insertion of data.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> OK </button>
-                    </div>
-                </div>
-            </div>
-        </div>';
-        }        
+               
     }
     if ($id != ""){
         $res = $log->patient_read($id);
@@ -84,7 +66,7 @@
             var map;
             function initMap() {
                 map = new google.maps.Map(document.getElementById('map'), {
-                    center: {lat: 7.873054, lng: 80.771797},
+                    center: {lat: <?php echo $data['Latitude'];?>, lng: <?php echo $data['Longitude'] ;?>},
                     zoom:8
                 });
                 var infoWindow = new google.maps.InfoWindow();
@@ -93,7 +75,12 @@
                 document.getElementById('city').addEventListener('keyup', function() {
                     geocodeAddress(geocoder, map);
                 })
-
+                var initlatlng = {lat: <?php echo $data['Latitude'];?>, lng: <?php echo $data['Longitude'] ;?> };
+                var marker = new google.maps.Marker({
+                    position: initlatlng,
+                    map: map,
+                    title: 'Current Marker'
+                  });
                 google.maps.event.addListener(map,'click', function(e){
                     document.getElementById("latitude").value = e.latLng.lat();
                     document.getElementById("longitude").value = e.latLng.lng();
@@ -144,33 +131,17 @@
                 <input id="longitude" name="longitude" type="hidden" value="<?php echo $data['Longitude'];?>" required>
                 <div class="element-phone"><label class="title"></label><div class="item-cont"><input class="large" type="tel" pattern="^\d{10}$" maxlength="10" name="phone" placeholder="Contact Number" value="<?php echo $data['Telephone'];?>"/><span class="icon-place"></span></div></div>
                 <div class="element-input"><label class="title"></label><div class="item-cont"><input class="large" type="text" name="input5" placeholder="Disability" value="<?php echo $data['Disability'];?>"/><span class="icon-place"></span></div></div>
-                <div class="element-textarea"><label class="title"></label><div class="item-cont"><textarea class="medium" name="textarea" cols="20" rows="5" placeholder="Reason" text="<?php echo $data['Reason'];?>"></textarea><span class="icon-place"></span></div></div>
-                <div class="element-textarea"><label class="title"></label><div class="item-cont"><textarea class="medium" name="textarea1" cols="20" rows="5" placeholder="Description" text="<?php echo $data['Description'];?>"></textarea><span class="icon-place"></span></div></div>
+                <div class="element-textarea"><label class="title"></label><div class="item-cont"><textarea class="medium" name="textarea" cols="20" rows="5" placeholder="Reason"><?php echo $data['Reason'];?></textarea><span class="icon-place"></span></div></div>
+                <div class="element-textarea"><label class="title"></label><div class="item-cont"><textarea class="medium" name="textarea1" cols="20" rows="5" placeholder="Description" ><?php echo $data['Description'];?></textarea><span class="icon-place"></span></div></div>
                 <div class="form-group"><div class="col-md-9 col-md-offset-3"><div id="messages"></div></div>                                    
                 </div>
-                <div class="submit"><input type="submit" id="submit" value="Submit"/></div>
+                <div class="submit"><input type="submit"  value="Submit"   /></div>
             </form>
             <p class="frmd"><a href="http://formoid.com/v29.php">online form</a> Formoid.com 2.9</p>
         </div>
         
         
-        <div id="myModal" class="modal fade" >
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" style="background-color:#FFFFFF;font-size:25px;font-family:'Roboto',Arial,Helvetica,sans-serif;color:#34495E;max-width:600px;min-width:150px">Confirmation</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>Are you sure you want to save the data?</p>
-                        <p class="text-warning"><small>If you don't save, your data will be lost.</small></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Save </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
    			
         <script type="text/javascript">
         $(document).ready(function() {

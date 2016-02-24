@@ -19,9 +19,9 @@
         
         $log = new Admin();
         $res = $log->patient_insert($FirstName, $LastName, $Address, $City, $Telephone, $NIC, $Disability, $Reason, $Description, $latitude, $longitude);
-        if (!$res){
-            //Show error modal
-        }        
+        
+        
+        
     }
 ?>
 
@@ -32,17 +32,11 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>  
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>  
         <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css"/>
         <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"> </script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-        <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
-        <script src="js/vendor/bootstrap.min.js" type="text/javascript"></script>
-        <script src="js/vendor/jquery.sortelements.js" type="text/javascript"></script>
-        <script src="js/jquery.bdt.js" type="text/javascript"></script>   </head>
+    </head>
     
     <body>
         
@@ -127,35 +121,19 @@
                 <div class="element-textarea"><label class="title"></label><div class="item-cont"><textarea class="medium" name="textarea1" cols="20" rows="5" placeholder="Description"></textarea><span class="icon-place"></span></div></div>
                 <div class="element-textarea"><div id="messages"></div>                                  
                 </div>
-                <div class="submit"><input type="button"  value="Submit"  data-toggle='modal' data-target='#myModal' /></div>
+                <div class="submit"><input type="submit"  value="Submit"   /></div>
             </form>
             <p class="frmd"><a href="http://formoid.com/v29.php">online form</a> Formoid.com 2.9</p>
         </div>
         
+        <?php echo $errorModal;?>
         
-        <div id="myModal" class="modal fade" >
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" style="background-color:#FFFFFF;font-size:25px;font-family:'Roboto',Arial,Helvetica,sans-serif;color:#34495E;max-width:600px;min-width:150px">Confirmation</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>Are you sure you want to save the data?</p>
-                        <p class="text-warning"><small>If you don't save, your data will be lost.</small></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success"  id="submitBtn" name="submitBtn" ><span class="glyphicon glyphicon-ok"></span> Save </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-   	<script>
-            $('#submitBtn').click(function(){
-                alert('submit');
-                $('#contactForm').submit();
-            });
-        </script>
+          <script type="text/javascript">
+	$(document).ready(function(){
+		$("#myModal").modal('show');
+	});
+         
+        </script>	  
         <script type="text/javascript">
         $(document).ready(function() {
             $('#contactForm').bootstrapValidator({
