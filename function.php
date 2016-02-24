@@ -62,31 +62,37 @@ class Admin{
         return $bool;
     }
     
-    function patient_search($Name="", $City="", $Disability=""){
+    function patient_search($Name="", $City="", $Disability="")
+    {
         $CondArray = array();
-        if ($Name != ""){
+        if ($Name != "") {
             array_push($CondArray, "First_Name LIKE '%$Name%' OR Last_Name LIKE '%$Name%' OR CONCAT(First_Name, ' ', Last_Name) LIKE '%$Name%'");
         }
-        if ($City != ""){
+        if ($City != "") {
             array_push($CondArray, "City LIKE '%$City%'");
         }
-        if ($Disability != ""){
+        if ($Disability != "") {
             array_push($CondArray, "Disability LIKE '%$Disability%'");
         }
         $String = "SELECT * FROM patient";
-        $QUE= "";
-        if (count($CondArray) == 0){
+        $QUE = "";
+        if (count($CondArray) == 0) {
             $QUE = $String;
-        }
-        else{
+        } else {
             $QUE = $String . " WHERE " . implode(" AND ", $CondArray);
         }
+        //echo $QUE;
+        
         $res = $this->Conn->query($QUE);
-        return $res;
+        
+            return $res;
+
+        
     }
     
     function patient_read($PatientID){
         $QUE = "SELECT * FROM patient WHERE PatientID = '$PatientID'";
+        //echo $QUE;
         $result = $this->Conn->query($QUE);
         return $result;
         
@@ -108,10 +114,10 @@ class Admin{
         
         if (count($CondArray) != 0 ){
             $QUE = "UPDATE Patient set ". implode(" , ", $CondArray) . " WHERE PatientID = $PatientID"; 
-            echo $QUE;
-            $this->Conn->query($QUE);
+            //echo $QUE;
+            $res = $this->Conn->query($QUE);
         }
-        
+        return $res;
     }
     
     function patient_delete($PatientID){
