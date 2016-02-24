@@ -67,10 +67,12 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>  
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
         <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>  
         <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css"/>
         <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"> </script>
+        
     </head>
     
     <body>
@@ -148,7 +150,7 @@
                 <div class="element-input"><label class="title"></label><div class="item-cont"><input class="large" type="text" name="city" id="city" placeholder="City"/><span class="icon-place"></span></div></div>
                 <div class="element-input"><label class="title"></label><div class="item-cont"><h>Please select location from the map</h></div></div>
                 <div id="map" style="width: 550px; height: 300px"></div>
-                <input id="latitude" name="latitude" type="hidden" required>
+                <div class="element-input"><label class="title"></label><div class="item-cont"><input class="large" id="latitude" name="latitude" type="hidden" data-required="true" readonly=""><span class="icon-place"></span></div></div>
                 <input id="longitude" name="longitude" type="hidden" required>
                 <div class="element-phone"><label class="title"></label><div class="item-cont"><input class="large" type="tel" pattern="^\d{10}$" maxlength="10" name="phone" placeholder="Contact Number" value=""/><span class="icon-place"></span></div></div>
                 <div class="element-input"><label class="title"></label><div class="item-cont"><input class="large" type="text" name="input5" placeholder="Disability"/><span class="icon-place"></span></div></div>
@@ -172,6 +174,7 @@
         <script type="text/javascript">
         $(document).ready(function() {
             $('#contactForm').bootstrapValidator({
+                excluded: [':disabled', ':hidden', ':not(:visible)'],
                 container: '#messages',
                 feedbackIcons: {
                     valid: 'glyphicon glyphicon-ok',
@@ -204,11 +207,11 @@
                     input2: {
                         validators: {
                             notEmpty: {
-                                message: 'The last name cannot be empty'
+                                message: 'The NIC cannot be empty'
                             },
                             regexp: {
                                 regexp: /^[a-zA-Z0-9]+$/,
-                                message: 'The last name can only consist of alphabetic values'
+                                message: 'The NIC can only consist of an alphabetic value and 9 numbers'
                             }
                         }
                     },
@@ -226,64 +229,71 @@
                     city: {
                         validators: {
                             notEmpty: { 
-                                message: 'Please select a city'
+                                message: 'Please type the city name'
                             },
                             regexp: {
                                 regexp: /^[a-zA-Z]+$/,
-                                message: 'The last name can only consist of alphabetic values'
+                                message: 'The city can only consist of alphabetic values'
                             }
                         }
                     },
                     phone: {
                         validators: {
                             notEmpty: { 
-                                message: 'Please select a city'
+                                message: 'Please type the phone number'
                             }
                             
                         }
                     },
                     latitude: {
-                        validators: {
-                            notEmpty: { 
-                                message: 'Please select a city'
-                            }
-                            
-                        }
-                    },
-                    longitude: {
-                        validators: {
-                            notEmpty: { 
-                                message: 'Please select a city'
-                            }
-                            
-                        }
-                    },
-                    input5: {
+                        disabled: false,
                         validators: {
                             notEmpty: { 
                                 message: 'Please select a city'
                             },
                             regexp: {
-                                regexp: /^[a-zA-Z0-9_\.,' ']+$/,
-                                message: 'The last name can only consist of alphabetic values'
+                                //regexp: /^[a-zA-Z0-9_\.,' ']+$/,
+                                //message: 'The reas can only consist of alphabetic values'
+                            }
+                        }
+                    },
+                    longitude: {
+                        validators: {
+                            isEmpty: { 
+                                message: 'Please select a city'
+                            },
+                            regexp: {
+                                //regexp: /^[a-zA-Z0-9_\.,' ']+$/,
+                                //message: 'The reas can only consist of alphabetic values'
+                            }
+                        }
+                    },
+                    input5: {
+                        validators: {
+                            notEmpty: { 
+                                message: 'Please type the disability'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-Z0-9_/\.,' ']+$/,
+                               
                             }
                         }
                     },
                     textarea: {
                         validators: {
                             notEmpty: { 
-                                message: 'Please select a city'
+                                message: 'Please type the reason for disability'
                             },
                             regexp: {
                                 regexp: /^[a-zA-Z0-9_\.,' ']+$/,
-                                message: 'The last name can only consist of alphabetic values'
+                                //message: 'The reas can only consist of alphabetic values'
                             }
                         }
                     },
                     textarea1: {
                         validators: {
                             isEmpty: { 
-                                message: 'Please select a city'
+                                //message: 'Please select a city'
                             },
                             regexp: {
                                 regexp: /^[a-zA-Z0-9_\.,' ']+$/,
