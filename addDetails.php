@@ -1,4 +1,5 @@
 <?php 
+    $errorModal = "";
     include 'function.php' ;
     if ($_SERVER['REQUEST_METHOD'] == "POST"){
         
@@ -19,9 +20,43 @@
         
         $log = new Admin();
         $res = $log->patient_insert($FirstName, $LastName, $Address, $City, $Telephone, $NIC, $Disability, $Reason, $Description, $latitude, $longitude);
-        
-        
-        
+        if ($res){
+            $errorModal =  ' <div id="myModal" class="modal fade" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" style="background-color:#FFFFFF;font-size:25px;font-family:"Roboto",Arial,Helvetica,sans-serif;color:#34495E;max-width:600px;min-width:150px">Confirmation</h4>
+                    </div>
+                    <div class="modal-body">
+                        Data insertion was successful.
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal" ><span class="glyphicon glyphicon-ok"></span> OK </button>
+                    </div>
+                </div>
+            </div>
+        </div>';
+        }
+        else{
+            $errorModal =  ' <div id="myModal" class="modal fade" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" style="background-color:#FFFFFF;font-size:25px;font-family:"Roboto",Arial,Helvetica,sans-serif;color:#34495E;max-width:600px;min-width:150px">Confirmation</h4>
+                    </div>
+                    <div class="modal-body">
+                        There was an error in the insertion of data..
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal"><span class="glyphicon glyphicon-ok"></span> OK </button>
+                    </div>
+                </div>
+            </div>
+        </div>';
+        }
     }
 ?>
 

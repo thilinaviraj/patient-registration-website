@@ -2,6 +2,7 @@
     include 'function.php' ;
     $log = new Admin();
     $id = "";
+    $errorModal = "";
     if (isset($_GET['id'])){
         $id = $_GET['id'];
         
@@ -25,13 +26,51 @@
         
         $log = new Admin();
         $res = $log->patient_edit($id, $FirstName, $LastName, $Address, $City, $Telephone, $NIC, $Disability, $Reason, $Description, $latitude, $longitude);
-               
+        if ($res){
+            $errorModal =  ' <div id="myModal" class="modal fade" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" style="background-color:#FFFFFF;font-size:25px;font-family:"Roboto",Arial,Helvetica,sans-serif;color:#34495E;max-width:600px;min-width:150px">Confirmation</h4>
+                    </div>
+                    <div class="modal-body">
+                        Data insertion was successful.
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal" ><span class="glyphicon glyphicon-ok"></span> OK </button>
+                    </div>
+                </div>
+            </div>
+        </div>';
+        }
+        else{
+            $errorModal =  ' <div id="myModal" class="modal fade" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" style="background-color:#FFFFFF;font-size:25px;font-family:"Roboto",Arial,Helvetica,sans-serif;color:#34495E;max-width:600px;min-width:150px">Confirmation</h4>
+                    </div>
+                    <div class="modal-body">
+                        There was an error in the insertion of data..
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal"><span class="glyphicon glyphicon-ok"></span> OK </button>
+                    </div>
+                </div>
+            </div>
+        </div>';
+        }       
     }
     if ($id != ""){
         $res = $log->patient_read($id);
         $data = $res->fetch_assoc();
     }
-    else{}
+    else{
+        header("location:search.php");
+    }
 ?>
 
 <!DOCTYPE html>
@@ -140,7 +179,14 @@
             <p class="frmd"><a href="http://formoid.com/v29.php">online form</a> Formoid.com 2.9</p>
         </div>
         
+        <?php echo $errorModal;?>
         
+          <script type="text/javascript">
+	$(document).ready(function(){
+		$("#myModal").modal('show');
+	});
+         
+        </script>
         
    			
         <script type="text/javascript">
