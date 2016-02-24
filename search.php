@@ -29,7 +29,9 @@
         if($City != ""){$query_array[] = "city=".$City;}
         if($Disability != ""){$query_array[] = "dis=".$Disability;}
         $string = implode("&", $query_array);
+        
         $query = "searchxml.php?".$string;
+        
     }
     else{
         $query = "searchxml.php";
@@ -345,7 +347,7 @@ $(document).ready(function(){
                         <div class="form-group">
                             <input type="text" name="city" class="form-control" placeholder="City"/>
                             <input type="text" align = "right" class="form-control" name = "name" placeholder=" Name"/>
-                            <input type="text" name="disablitiy" class="form-control" placeholder="Disability"/>
+                            <input type="text" name="disability" class="form-control" placeholder="Disability"/>
                         </div> 
                         <button type="submit" class="btn btn-default">Search</button>					
                     </form>
@@ -381,7 +383,7 @@ $(document).ready(function(){
                                     <tbody id="myTable">
                                         <?php 
                                             while ($data = $res->fetch_assoc()){
-                                                echo "<tr><td><input type='checkbox' name='patients[]' class='check' id='patients[]' value='".$data['PatientID']."'></td><td>".$data['First_Name']."</td><td>".$data['Last_Name']."</td><td>".$data['NIC_No']."</td><td>".$data['Address']."</td><td>".$data['Telephone']."</td><td>".$data['Disability']."</td><td>".html_entity_decode($data['Reason'])."</td><td>".html_entity_decode($data['Description'])."</td>";
+                                                echo "<tr><td><input type='checkbox' name='patients[]' class='check' id='patients[]' value='".$data['PatientID']."'></td><td>".$data['First_Name']."</td><td>".$data['Last_Name']."</td><td>".$data['NIC_No']."</td><td>".$data['Address']."</td><td>".$data['Telephone']."</td><td>".$data['Disability']."</td><td>".html_entity_decode($data['Reason'])."</td><td>".html_entity_decode($data['Description'])."</td><td><a href='editDetails.php?id=".$data['PatientID']."' >Edit</a></td>";
                                             }
                                         ?>
                                     </tbody>

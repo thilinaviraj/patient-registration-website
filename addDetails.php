@@ -1,6 +1,7 @@
 <?php 
     include 'function.php' ;
     if ($_SERVER['REQUEST_METHOD'] == "POST"){
+        
         $FirstName = $_POST['input'];
         $LastName = $_POST['input1'];
         $NIC = $_POST['input2'];
@@ -103,7 +104,8 @@
                     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsgBFqz2cjiLyvYBDRHrOdgf9vDBIvno8&callback=initMap">
             </script>
     
-            <form class="formoid-solid-blue" id="contactForm" style="background-color:#FFFFFF;font-size:14px;font-family:'Roboto',Arial,Helvetica,sans-serif;color:#34495E;max-width:600px;min-width:150px" method="post"><div class="title"><h2>Registration form</h2></div>
+            <form class="formoid-solid-blue" id="contactForm" style="background-color:#FFFFFF;font-size:14px;font-family:'Roboto',Arial,Helvetica,sans-serif;color:#34495E;max-width:600px;min-width:150px" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post"><div class="title"><h2>Registration form</h2></div>
+                
                 <div class="element-input"><label class="title"></label><div class="item-cont"><input class="large" type="text" name="input" placeholder="First Name" /><span class="icon-place"></span></div></div>
                 <div class="element-input"><label class="title"></label><div class="item-cont"><input class="large" type="text" name="input1" placeholder="Last Name" /><span class="icon-place"></span></div></div>
                 <div class="element-input"><label class="title"></label><div class="item-cont"><input class="large" type="text" name="input2" maxlength="10" minlength="10" placeholder="NIC"/><span class="icon-place"></span></div></div>
@@ -117,9 +119,9 @@
                 <div class="element-input"><label class="title"></label><div class="item-cont"><input class="large" type="text" name="input5" placeholder="Disability"/><span class="icon-place"></span></div></div>
                 <div class="element-textarea"><label class="title"></label><div class="item-cont"><textarea class="medium" name="textarea" cols="20" rows="5" placeholder="Reason"></textarea><span class="icon-place"></span></div></div>
                 <div class="element-textarea"><label class="title"></label><div class="item-cont"><textarea class="medium" name="textarea1" cols="20" rows="5" placeholder="Description"></textarea><span class="icon-place"></span></div></div>
-                <div class="form-group"><div class="col-md-9 col-md-offset-3"><div id="messages"></div></div>                                    
+                <div class="element-textarea"><div id="messages"></div>                                  
                 </div>
-                <div class="submit"><input type="submit" id="submit" value="Submit"/></div>
+                <div class="submit"><input type="button"  value="Submit"  data-toggle='modal' data-target='#myModal' /></div>
             </form>
             <p class="frmd"><a href="http://formoid.com/v29.php">online form</a> Formoid.com 2.9</p>
         </div>
@@ -137,17 +139,17 @@
                         <p class="text-warning"><small>If you don't save, your data will be lost.</small></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Save </button>
+                        <button type="submit" class="btn btn-success"  id="submitBtn" name="submitBtn" ><span class="glyphicon glyphicon-ok"></span> Save </button>
                     </div>
                 </div>
             </div>
         </div>
-   		<script type="text/javascript">
-	$(document).ready(function(){
-		$("#myModal").modal('show');
-	});
-         
-        </script>	
+   	<script>
+            $('#submitBtn').click(function(){
+                alert('submit');
+                $('#contactForm').submit();
+            });
+        </script>
         <script type="text/javascript">
         $(document).ready(function() {
             $('#contactForm').bootstrapValidator({
@@ -197,7 +199,7 @@
                                 message: 'The address cannot be empty'
                             },
                             regexp: {
-                                regexp: /^[a-zA-Z0-9_\.,' ']+$/,
+                                regexp: /^[a-zA-Z0-9_/\.,' ']+$/,
                                 message: 'The address can only consist of alphabetical, number and underscore'
                             }
                         }
@@ -214,6 +216,22 @@
                         }
                     },
                     phone: {
+                        validators: {
+                            notEmpty: { 
+                                message: 'Please select a city'
+                            }
+                            
+                        }
+                    },
+                    latitude: {
+                        validators: {
+                            notEmpty: { 
+                                message: 'Please select a city'
+                            }
+                            
+                        }
+                    },
+                    longitude: {
                         validators: {
                             notEmpty: { 
                                 message: 'Please select a city'
